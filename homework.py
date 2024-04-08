@@ -54,7 +54,7 @@ account.withdraw(1500)
 
 
 class Person:
-    def __init__(self, name, age):S
+    def __init__(self, name, age):
         self.name = name
         self.age = age
 
