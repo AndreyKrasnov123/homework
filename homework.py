@@ -1,76 +1,47 @@
-# Пример использования абстракции
-class Animal:
-    def __init__(self, name):
+class Pizza:
+    def __init__(self, name, price):
         self.name = name
+        self.price = price
 
-class Dog(Animal):
-    def __init__(self, name, breed):
-        super().__init__(name)
-        self.breed = breed
+class Order:
+    def __init__(self):
+        self.items = []
 
-class Cat(Animal):
-    def __init__(self, name, color):
-        super().__init__(name)
-        self.color = color
+    def add_item(self, item):
+        self.items.append(item)
 
+    def calculate_total(self):
+        total = 0
+        for item in self.items:
+            total += item.price
+        return total
 
-dog = Dog("Бася", "Чихуа-хуа")
-print(f"{dog.name} собака породы {dog.breed}")
+class Payment:
+    def process_payment(self, amount):
+        return f"Заказ успешно обработан! ${amount}"
 
-cat = Cat("Муся", "Метис")
-print(f"{cat.name} кошка породы {cat.color}")
+class Database:
+    def __init__(self):
+        self.orders = []
 
+    def save_order(self, order):
+        self.orders.append(order)
+        return "Заказ успешно обработан!"
 
-# Пример использования инкапсуляции (минибанк)
+pizza1 = Pizza("Pepperoni", 10)
+pizza2 = Pizza("Margarita", 8)
 
+order = Order()
+order.add_item(pizza1)
+order.add_item(pizza2)
 
-class BankAccount:
-    def __init__(self, balance):
-        self.__balance = balance
+total_price = order.calculate_total()
 
-    def deposit(self, amount):
-        self.__balance += amount
+payment = Payment()
+payment_result = payment.process_payment(total_price)
 
-    def withdraw(self, amount):
-        if amount <= self.__balance:
-            self.__balance -= amount
-        else:
-            print("Недостаточно средств на счете")
+database = Database()
+database.save_order(order)
 
-    def get_balance(self):
-        return self.__balance
-
-
-account = BankAccount(1000)
-print(account.get_balance())
-account.deposit(500)
-print(account.get_balance())
-account.withdraw(200)
-print(account.get_balance())
-account.withdraw(1500)
-
-
-# Наследие классов
-
-
-class Person:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-
-class Student(Person):
-    def __init__(self, name, age, student_id):
-        super().__init__(name, age)
-        self.student_id = student_id
-
-class Teacher(Person):
-    def __init__(self, name, age, subject):
-        super().__init__(name, age)
-        self.subject = subject
-
-
-student = Student("Персона с xx хромосаммами", 20, "123456")
-print(f"{student.name} студентка с ID {student.student_id}")
-
-teacher = Teacher("Степан", 35, "Математики")
-print(f"{teacher.name} учитель {teacher.subject}")
+print(payment_result)
+print("Coxraneno")
